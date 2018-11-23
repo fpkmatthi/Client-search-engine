@@ -4,3 +4,7 @@
 *.iml
 
 src/persistence/clientAddressDatabase\.db
+
+out/
+
+sqlite-jdbc-3\.23\.1\.jar

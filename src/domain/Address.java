@@ -89,7 +89,7 @@ public class Address {
     @Override
     public String toString(){
         return String.format("%-19s %d%n" +
-                "%-20s %s (%d)%n" +
-                "%-25s %s %d", "Volgnummer:", trackNr, "Woonplaats:", city, zipcode, "Adres:", street, houseNr);
+                "%-21s %s (%d)%n" +
+                "%-26s %s %d", "Volgnummer:", trackNr, "Woonplaats:", city, zipcode, "Adres:", street, houseNr);
     }
 }
