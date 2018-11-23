@@ -1,5 +1,6 @@
 package domain;
 
+import exceptions.EmptyClientListException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -16,7 +17,7 @@ public class ClientController {
 
 
     // Search client - Methods
-    public void searchClient(String searchTerm) {
+    public void searchClient(String searchTerm) throws EmptyClientListException, IllegalArgumentException {
         clientRepository.searchClient(searchTerm);
     }
     public ObservableList<Client> getMatchingClients() {
