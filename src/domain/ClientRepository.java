@@ -41,7 +41,6 @@ public class ClientRepository {
 
     // Add client - methods
     public void addClient(Client client) {
-        clients.put(client.getId(), client);
         persistenceController.addClient(client);
     }
 
