@@ -2,6 +2,7 @@ package gui;
 
 import domain.ClientController;
 import exceptions.EmptyClientListException;
+import gui.addClient.AddClientScreenController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -47,9 +48,8 @@ public class SearchScreenController extends GridPane {
     // Handlers
     @FXML
     void btnAddOnAction(ActionEvent event) {
-        // TODO : implement AddClient screen and controller
-        // Stage stage = (Stage) btnAdd.getScene().getWindow();
-        // stage.setScene(new Scene(new AddClientScreenController(clientController)));
+        Stage stage = (Stage) btnAdd.getScene().getWindow();
+        stage.setScene(new Scene(new AddClientScreenController(clientController)));
     }
 
     @FXML
@@ -60,15 +60,18 @@ public class SearchScreenController extends GridPane {
             Stage stage = (Stage) btnAdd.getScene().getWindow();
             stage.setScene(new Scene(new ListScreenController(clientController)));
         } catch (EmptyClientListException e) {
-            Alert noClientFoundAlert = new Alert(Alert.AlertType.WARNING);
-            noClientFoundAlert.setTitle("Waarschuwing");
-            noClientFoundAlert.setContentText("Er werden geen klanten gevonden met de opgegeven zoekterm");
-            noClientFoundAlert.showAndWait();
+            showAlert("Er werden geen klanten gevonden met de opgegeven zoekterm");
         } catch (IllegalArgumentException e){
-            Alert noClientFoundAlert = new Alert(Alert.AlertType.WARNING);
-            noClientFoundAlert.setTitle("Waarschuwing");
-            noClientFoundAlert.setContentText("Gelieve een geldige zoekterm in te geven");
-            noClientFoundAlert.showAndWait();
+            showAlert("Gelieve een geldige zoekterm in te geven");
         }
+    }
+
+    private void showAlert(String contentText){
+        Alert noClientFoundAlert = new Alert(Alert.AlertType.WARNING);
+        noClientFoundAlert.setTitle("Waarschuwing");
+        noClientFoundAlert.setHeaderText(null);
+        noClientFoundAlert.setContentText(contentText);
+        noClientFoundAlert.showAndWait();
+
     }
 }

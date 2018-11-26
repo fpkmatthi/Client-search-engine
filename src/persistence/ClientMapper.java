@@ -1,5 +1,6 @@
 package persistence;
 
+import domain.Address;
 import domain.Client;
 
 import java.sql.*;
@@ -113,6 +114,39 @@ public class ClientMapper {
         }
         return clients;
     }
+
+
+    // Add client - Methods
+    public void addClient(Client client) {
+        try (Connection connection = DriverManager.getConnection(JDBC_URL);
+             PreparedStatement addClient = connection.prepareStatement("insert into client (firstname, lastname) values (?, ?)");
+             PreparedStatement addAddress = connection.prepareStatement("insert into address values (?, ?, ?, ?, ?, ?)");
+             PreparedStatement getLastInsertedId = connection.prepareStatement("select last_insert_rowid()")
+        ) {
+            addClient.setString(1, client.getFirstname());
+            addClient.setString(2, client.getLastname());
+            addClient.executeUpdate();
+
+            ResultSet rs = getLastInsertedId.executeQuery();
+            int clientID = 0;
+            if (rs.next()) {
+                clientID = rs.getInt("last_insert_rowid()");
+            }
+            for (Address address : client.getAddresses().values()) {
+                addAddress.setInt(1, address.getTrackNr());
+                addAddress.setString(2, address.getCity());
+                addAddress.setString(3, address.getStreet());
+                addAddress.setInt(4, address.getHouseNr());
+                addAddress.setInt(5, address.getZipcode());
+                addAddress.setInt(6, clientID);
+
+                addAddress.executeUpdate();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
 }
