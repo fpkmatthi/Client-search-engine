@@ -39,5 +39,9 @@ public class ClientRepository {
     }
 
 
+    // Add client - methods
+    public void addClient(Client client) {
+        persistenceController.addClient(client);
+    }
 
 }

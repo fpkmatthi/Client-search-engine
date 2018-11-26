@@ -39,5 +39,11 @@ public class ClientController {
     }
 
 
+    // Add client - Methods
+    public void addClient(String firstname, String lastname, int trackNr, String city, String street, int houseNr, int zipcode) {
+        Client client = new Client(firstname, lastname);
+		client.addAddress(trackNr, city, street, houseNr, zipcode);
+		clientRepository.addClient(client);
+    }
 
 }
